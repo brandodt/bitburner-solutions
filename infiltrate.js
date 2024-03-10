@@ -17,7 +17,7 @@ const state = {
 };
 
 // Speed of game actions, in milliseconds.
-const speed = 22;
+const speed = 0.0001;
 
 // Small hack to save RAM.
 // This will work smoothly, because the script does not use
@@ -76,9 +76,14 @@ const infiltrationGames = [
         name: "enter the code",
         init: function (screen) { },
         play: function (screen) {
-            const h4 = getEl(screen, "h4");
-            const code = h4[1].textContent;
-
+            const spans = getEl(screen, "div span");
+            const code =
+                spans[
+                    spans.length - 1 -
+                    [...Array(spans.length).keys()].filter(
+                        (x) => spans[x].textContent == "?"
+                    ).length
+                ].textContent;
             switch (code) {
                 case "↑":
                     pressKey("w");
@@ -360,7 +365,7 @@ const infiltrationGames = [
     {
         name: "cut the wires with the following properties",
         init: function (screen) {
-            let numberHack = ["1","2","3","4","5","6","7","8","9"];
+            let numberHack = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
             const colors = {
                 red: "red",
                 white: "white",
@@ -399,7 +404,7 @@ const infiltrationGames = [
                         index += 1;
                         continue;
                     }
-                    wireColor[color].push(j+1);
+                    wireColor[color].push(j + 1);
                     index += 1;
                 }
             }
@@ -436,7 +441,7 @@ const infiltrationGames = [
             if (!wire) {
                 return;
             }
-            for (let i=0;i<wire.length;i++) {
+            for (let i = 0; i < wire.length; i++) {
                 pressKey(wire[i].toString());
             }
         },

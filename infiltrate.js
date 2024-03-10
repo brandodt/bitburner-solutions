@@ -512,29 +512,10 @@ function infLoop() {
  * container.
  */
 function getEl(parent, selector) {
-    let prefix = ":scope";
-
-    if ("string" === typeof parent) {
+    if (typeof parent === "string") {
         selector = parent;
         parent = doc;
-
-        prefix = ".MuiBox-root>.MuiBox-root>.MuiBox-root";
-
-        if (!doc.querySelectorAll(prefix).length) {
-            prefix = ".MuiBox-root>.MuiBox-root>.MuiGrid-root";
-        }
-        if (!doc.querySelectorAll(prefix).length) {
-            prefix = ".MuiContainer-root>.MuiPaper-root";
-        }
-        if (!doc.querySelectorAll(prefix).length) {
-            return [];
-        }
     }
-
-    selector = selector.split(",");
-    selector = selector.map((item) => `${prefix} ${item}`);
-    selector = selector.join(",");
-
     return parent.querySelectorAll(selector);
 }
 
